@@ -1441,138 +1441,563 @@
 <div class="gold-divider"></div>
 
 <!-- PORTFOLIO -->
+<!-- ============================================================
+     PORTFOLIO SECTION — DROP-IN REPLACEMENT
+     Replace everything from <section id="portfolio"> ... </section>
+     (and the matching CSS block) with this code.
+     ============================================================ -->
+
+<!-- ── PORTFOLIO CSS ── paste inside your existing <style> block ──────────── -->
+<style id="portfolio-upgrade-styles">
+
+/* ── Reset old portfolio styles ── */
+#portfolio .portfolio-grid,
+#portfolio .portfolio-card,
+#portfolio .portfolio-preview,
+#portfolio .portfolio-overlay,
+#portfolio .portfolio-info { all: unset; }
+
+/* ── Section shell ── */
+#portfolio {
+  background: var(--black-2);
+  padding: 110px 6% 120px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* ── Ambient background glow ── */
+#portfolio::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse at center,
+    rgba(201,168,76,0.055) 0%,
+    transparent 68%);
+  pointer-events: none;
+}
+#portfolio::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle,
+    rgba(201,168,76,0.035) 0%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Header ── */
+.ptf-header {
+  margin-bottom: 72px;
+  max-width: 640px;
+}
+
+/* ── Grid ── */
+.ptf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Card shell ── */
+.ptf-card {
+  position: relative;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(201,168,76,0.18);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition:
+    transform 0.45s cubic-bezier(0.22,0.61,0.36,1),
+    border-color 0.35s ease,
+    box-shadow 0.45s ease;
+  will-change: transform;
+}
+
+/* Animated gold border sweep on top edge */
+.ptf-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  transition: left 0.55s cubic-bezier(0.22,0.61,0.36,1);
+  z-index: 10;
+}
+
+/* Ambient corner glow */
+.ptf-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 0; height: 0;
+  background: radial-gradient(circle at 100% 100%,
+    rgba(201,168,76,0.12) 0%,
+    transparent 60%);
+  transition: width 0.5s ease, height 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ptf-card:hover {
+  transform: translateY(-10px) scale(1.012);
+  border-color: rgba(201,168,76,0.55);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(201,168,76,0.12),
+    0 0 50px rgba(201,168,76,0.08);
+}
+.ptf-card:hover::before { left: 100%; }
+.ptf-card:hover::after { width: 260px; height: 260px; }
+
+/* ── Preview iframe wrapper ── */
+.ptf-preview-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #080808;
+  flex-shrink: 0;
+}
+
+/* Subtle inner vignette */
+.ptf-preview-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, transparent 55%, rgba(5,5,5,0.75) 100%),
+    linear-gradient(to right, rgba(5,5,5,0.08) 0%, transparent 10%),
+    linear-gradient(to left,  rgba(5,5,5,0.08) 0%, transparent 10%);
+  pointer-events: none;
+  z-index: 3;
+  transition: background 0.4s ease;
+}
+.ptf-card:hover .ptf-preview-wrap::after {
+  background:
+    linear-gradient(to bottom, transparent 40%, rgba(5,5,5,0.9) 100%);
+}
+
+/* Browser chrome bar */
+.ptf-chrome {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 26px;
+  background: rgba(14,14,14,0.95);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  z-index: 4;
+  backdrop-filter: blur(4px);
+}
+.ptf-chrome-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ptf-chrome-dot.r { background: #ff5f56; }
+.ptf-chrome-dot.y { background: #ffbd2e; }
+.ptf-chrome-dot.g { background: #27c93f; }
+.ptf-chrome-addr {
+  flex: 1;
+  height: 12px;
+  margin-left: 6px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  overflow: hidden;
+}
+.ptf-chrome-url {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+  font-family: 'Jost', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Iframe */
+.ptf-iframe {
+  position: absolute;
+  top: 26px; left: 0;
+  width: 100%;
+  height: calc(100% - 26px);
+  border: none;
+  transform-origin: top left;
+  pointer-events: none;
+  display: block;
+  z-index: 2;
+}
+
+/* ── Hover overlay ── */
+.ptf-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,5,5,0.6);
+  backdrop-filter: blur(3px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 5;
+}
+.ptf-card:hover .ptf-overlay { opacity: 1; }
+
+.ptf-overlay-badge {
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  opacity: 0.75;
+}
+.ptf-overlay-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-align: center;
+}
+.ptf-overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: rgba(201,168,76,0.06);
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
+  padding: 10px 26px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.ptf-overlay-btn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+.ptf-overlay-btn svg {
+  width: 12px; height: 12px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* ── Info bar ── */
+.ptf-info {
+  padding: 22px 26px 26px;
+  background: rgba(255,255,255,0.018);
+  border-top: 1px solid rgba(201,168,76,0.13);
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 0.35s ease;
+}
+.ptf-card:hover .ptf-info {
+  background: rgba(201,168,76,0.04);
+  border-top-color: rgba(201,168,76,0.28);
+}
+
+.ptf-num {
+  position: absolute;
+  top: 18px; right: 22px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  color: rgba(201,168,76,0.25);
+  letter-spacing: 2px;
+}
+.ptf-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+}
+.ptf-card:hover .ptf-name { color: var(--gold-light); }
+
+.ptf-desc {
+  font-size: 0.82rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.ptf-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.ptf-tag {
+  font-size: 0.6rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.6);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 3px 10px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.ptf-card:hover .ptf-tag {
+  border-color: rgba(201,168,76,0.4);
+  color: var(--gold);
+}
+.ptf-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.3);
+  flex-shrink: 0;
+}
+
+/* ── Bottom CTA bar ── */
+.ptf-bottom {
+  margin-top: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+.ptf-bottom::before {
+  content: '';
+  position: absolute;
+  top: -34px; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.35), transparent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ptf-grid { grid-template-columns: 1fr; gap: 22px; }
+  #portfolio { padding: 70px 5% 80px; }
+  .ptf-card:hover { transform: translateY(-5px); }
+}
+@media (max-width: 480px) {
+  .ptf-overlay-title { font-size: 0.95rem; }
+}
+</style>
+
+<!-- ── PORTFOLIO SECTION ── replace existing <section id="portfolio"> ─────── -->
 <section id="portfolio">
-  <div class="portfolio-header">
+
+  <div class="ptf-header">
     <p class="section-label reveal">Our Work</p>
-    <h2 class="section-title reveal" style="transition-delay:0.1s">Featured <span class="gold">Projects</span></h2>
-    <p class="section-desc reveal" style="transition-delay:0.2s">A glimpse of the premium digital experiences we've crafted for our clients across various industries.</p>
+    <h2 class="section-title reveal" style="transition-delay:0.1s">
+      Featured <span class="gold">Projects</span>
+    </h2>
+    <p class="section-desc reveal" style="transition-delay:0.2s">
+      Real websites, real results. A curated selection of premium digital experiences
+      we've crafted — each one built to convert visitors into customers.
+    </p>
   </div>
-  <div class="portfolio-grid">
-    <div class="portfolio-card reveal" style="transition-delay:0s">
-      <div class="portfolio-preview">
-        <div class="browser-bar">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="url-bar"></div>
-        </div>
-        <div class="mock-site">
-          <div class="mock-hero-1">
-            <div class="mock-h"></div>
-            <div class="mock-p"></div>
-            <div class="mock-p" style="width:70%"></div>
-            <div class="mock-btn"></div>
+
+  <div class="ptf-grid">
+
+    <!-- ── Card 1 · Syreya Recording Theatre ── -->
+    <div class="ptf-card reveal" style="transition-delay:0s"
+         onclick="window.open('https://senthilpuli.github.io/syreya-website/','_blank')">
+      <div class="ptf-preview-wrap">
+        <div class="ptf-chrome">
+          <div class="ptf-chrome-dot r"></div>
+          <div class="ptf-chrome-dot y"></div>
+          <div class="ptf-chrome-dot g"></div>
+          <div class="ptf-chrome-addr">
+            <span class="ptf-chrome-url">senthilpuli.github.io/syreya-website</span>
           </div>
         </div>
+        <iframe
+          class="ptf-iframe"
+          src="https://senthilpuli.github.io/syreya-website/"
+          title="Syreya Recording Theatre Website"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          scrolling="no">
+        </iframe>
       </div>
-      <div class="portfolio-overlay">
-        <div class="portfolio-overlay-title">LuxBrand Agency</div>
-        <div class="portfolio-overlay-type">Corporate Website</div>
-        <div class="portfolio-overlay-btn">View Project</div>
+      <div class="ptf-overlay">
+        <span class="ptf-overlay-badge">Live Project</span>
+        <div class="ptf-overlay-title">Syreya Recording Theatre</div>
+        <a class="ptf-overlay-btn"
+           href="https://senthilpuli.github.io/syreya-website/"
+           target="_blank"
+           onclick="event.stopPropagation()">
+          View Live
+          <svg viewBox="0 0 16 16"><path d="M9 1h5v5l-1-1-5 4-1-2 5-4zm-7 2h4v1H3v8h8v-4h1v5H2z"/></svg>
+        </a>
       </div>
-      <div class="portfolio-info">
-        <div class="portfolio-info-name">LuxBrand Agency</div>
-        <div class="portfolio-info-type">Corporate • Design</div>
+      <div class="ptf-info">
+        <span class="ptf-num">01</span>
+        <div class="ptf-name">Syreya Recording Theatre</div>
+        <p class="ptf-desc">
+          A cinematic, immersive website for a premium recording studio — capturing the
+          artistry and sonic excellence of the brand with dark, atmospheric design.
+        </p>
+        <div class="ptf-meta">
+          <span class="ptf-tag">Music & Arts</span>
+          <span class="ptf-dot"></span>
+          <span class="ptf-tag">Web Design</span>
+        </div>
       </div>
     </div>
-    <div class="portfolio-card reveal" style="transition-delay:0.1s">
-      <div class="portfolio-preview">
-        <div class="browser-bar">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="url-bar"></div>
-        </div>
-        <div class="mock-site">
-          <div class="mock-hero-2">
-            <div class="mock-col">
-              <div class="mock-h2"></div>
-              <div class="mock-p2"></div>
-              <div class="mock-p2 w60"></div>
-              <div class="mock-btn2"></div>
-            </div>
-            <div class="mock-img-box"></div>
+
+    <!-- ── Card 2 · Sree Sakthi ── -->
+    <div class="ptf-card reveal" style="transition-delay:0.15s"
+         onclick="window.open('https://richard18142004.github.io/sree-sakthi-website/','_blank')">
+      <div class="ptf-preview-wrap">
+        <div class="ptf-chrome">
+          <div class="ptf-chrome-dot r"></div>
+          <div class="ptf-chrome-dot y"></div>
+          <div class="ptf-chrome-dot g"></div>
+          <div class="ptf-chrome-addr">
+            <span class="ptf-chrome-url">richard18142004.github.io/sree-sakthi-website</span>
           </div>
         </div>
+        <iframe
+          class="ptf-iframe"
+          src="https://richard18142004.github.io/sree-sakthi-website/"
+          title="Sree Sakthi Website"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          scrolling="no">
+        </iframe>
       </div>
-      <div class="portfolio-overlay">
-        <div class="portfolio-overlay-title">AquaTech Store</div>
-        <div class="portfolio-overlay-type">E-Commerce Platform</div>
-        <div class="portfolio-overlay-btn">View Project</div>
+      <div class="ptf-overlay">
+        <span class="ptf-overlay-badge">Live Project</span>
+        <div class="ptf-overlay-title">Sree Sakthi</div>
+        <a class="ptf-overlay-btn"
+           href="https://richard18142004.github.io/sree-sakthi-website/"
+           target="_blank"
+           onclick="event.stopPropagation()">
+          View Live
+          <svg viewBox="0 0 16 16"><path d="M9 1h5v5l-1-1-5 4-1-2 5-4zm-7 2h4v1H3v8h8v-4h1v5H2z"/></svg>
+        </a>
       </div>
-      <div class="portfolio-info">
-        <div class="portfolio-info-name">AquaTech Store</div>
-        <div class="portfolio-info-type">E-Commerce • Development</div>
+      <div class="ptf-info">
+        <span class="ptf-num">02</span>
+        <div class="ptf-name">Sree Sakthi</div>
+        <p class="ptf-desc">
+          A professional business website delivering a clean, trust-building digital
+          presence — designed to communicate credibility and drive enquiries.
+        </p>
+        <div class="ptf-meta">
+          <span class="ptf-tag">Business</span>
+          <span class="ptf-dot"></span>
+          <span class="ptf-tag">Frontend Dev</span>
+        </div>
       </div>
     </div>
-    <div class="portfolio-card reveal" style="transition-delay:0.2s">
-      <div class="portfolio-preview">
-        <div class="browser-bar">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="url-bar"></div>
-        </div>
-        <div class="mock-site">
-          <div class="mock-hero-3">
-            <div class="mock-card-mini">
-              <div class="icon-box"></div>
-              <div class="line"></div>
-              <div class="line short"></div>
-            </div>
-            <div class="mock-card-mini">
-              <div class="icon-box"></div>
-              <div class="line"></div>
-              <div class="line short"></div>
-            </div>
-            <div class="mock-card-mini">
-              <div class="icon-box"></div>
-              <div class="line"></div>
-              <div class="line short"></div>
-            </div>
-            <div class="mock-card-mini">
-              <div class="icon-box"></div>
-              <div class="line"></div>
-              <div class="line short"></div>
-            </div>
+
+    <!-- ── Card 3 · Cholan Web Studio ── -->
+    <div class="ptf-card reveal" style="transition-delay:0.3s"
+         onclick="window.open('https://senthilpuli.github.io/Cholan-Web-studio/','_blank')">
+      <div class="ptf-preview-wrap">
+        <div class="ptf-chrome">
+          <div class="ptf-chrome-dot r"></div>
+          <div class="ptf-chrome-dot y"></div>
+          <div class="ptf-chrome-dot g"></div>
+          <div class="ptf-chrome-addr">
+            <span class="ptf-chrome-url">senthilpuli.github.io/Cholan-Web-studio</span>
           </div>
         </div>
+        <iframe
+          class="ptf-iframe"
+          src="https://senthilpuli.github.io/Cholan-Web-studio/"
+          title="Cholan Web Studio Website"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          scrolling="no">
+        </iframe>
       </div>
-      <div class="portfolio-overlay">
-        <div class="portfolio-overlay-title">FinEdge Dashboard</div>
-        <div class="portfolio-overlay-type">Web Application</div>
-        <div class="portfolio-overlay-btn">View Project</div>
+      <div class="ptf-overlay">
+        <span class="ptf-overlay-badge">Live Project</span>
+        <div class="ptf-overlay-title">Cholan Web Studio</div>
+        <a class="ptf-overlay-btn"
+           href="https://senthilpuli.github.io/Cholan-Web-studio/"
+           target="_blank"
+           onclick="event.stopPropagation()">
+          View Live
+          <svg viewBox="0 0 16 16"><path d="M9 1h5v5l-1-1-5 4-1-2 5-4zm-7 2h4v1H3v8h8v-4h1v5H2z"/></svg>
+        </a>
       </div>
-      <div class="portfolio-info">
-        <div class="portfolio-info-name">FinEdge Dashboard</div>
-        <div class="portfolio-info-type">Web App • Finance</div>
+      <div class="ptf-info">
+        <span class="ptf-num">03</span>
+        <div class="ptf-name">Cholan Web Studio</div>
+        <p class="ptf-desc">
+          Our own studio website — a showcase of premium dark-gold design with fluid
+          animations, particle effects, and a conversion-focused layout.
+        </p>
+        <div class="ptf-meta">
+          <span class="ptf-tag">Agency</span>
+          <span class="ptf-dot"></span>
+          <span class="ptf-tag">Premium UI</span>
+        </div>
       </div>
     </div>
-    <div class="portfolio-card reveal" style="transition-delay:0.3s">
-      <div class="portfolio-preview">
-        <div class="browser-bar">
-          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-          <div class="url-bar"></div>
-        </div>
-        <div class="mock-site">
-          <div class="mock-hero-4">
-            <div class="mock-logo-ph"></div>
-            <div class="mock-nav-bar"></div>
-            <div class="mock-h" style="width:50%; height:7px; background:rgba(34,197,94,0.6)"></div>
-            <div class="mock-tag-row">
-              <div class="mock-tag"></div>
-              <div class="mock-tag"></div>
-              <div class="mock-tag" style="width:50px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="portfolio-overlay">
-        <div class="portfolio-overlay-title">GreenLeaf Organics</div>
-        <div class="portfolio-overlay-type">Brand + Website</div>
-        <div class="portfolio-overlay-btn">View Project</div>
-      </div>
-      <div class="portfolio-info">
-        <div class="portfolio-info-name">GreenLeaf Organics</div>
-        <div class="portfolio-info-type">Branding • Lifestyle</div>
-      </div>
-    </div>
+
+  </div><!-- /.ptf-grid -->
+
+  <!-- Bottom CTA strip -->
+  <div class="ptf-bottom reveal" style="transition-delay:0.4s">
+    <a href="https://wa.me/919489272820?text=Hi%20Cholan%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20a%20website!"
+       class="btn-primary" target="_blank">Discuss Your Project</a>
+    <a href="#contact" class="btn-outline">View All Services</a>
   </div>
+
 </section>
+
+<!-- ── Iframe scale fix (run once after DOM ready) ─────────────────────────── -->
+<script>
+(function scaleIframes() {
+  function applyScale() {
+    document.querySelectorAll('.ptf-iframe').forEach(function(f) {
+      var wrap = f.closest('.ptf-preview-wrap');
+      if (!wrap) return;
+      var wW = wrap.offsetWidth;
+      var wH = wrap.offsetHeight - 26;          /* subtract chrome bar */
+      if (!wW || !wH) return;
+      var desktopW = 1280;
+      var scaleX = wW / desktopW;
+      var neededH = wH / scaleX;
+      f.style.width = desktopW + 'px';
+      f.style.height = neededH + 'px';
+      f.style.transform = 'scale(' + scaleX + ')';
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyScale);
+  } else {
+    applyScale();
+  }
+  window.addEventListener('resize', applyScale);
+})();
+</script>
+
 
 <!-- CTA BANNER -->
 <section id="cta-banner">
