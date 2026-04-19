@@ -80,7 +80,7 @@
     opacity: 0.55;
   }
 
-  /* BACKGROUND LOGO WATERMARK — premium ghosted version fixed behind all content */
+  /* BACKGROUND LOGO WATERMARK */
   .bg-logo-watermark {
     position: fixed;
     top: 50%; left: 50%;
@@ -100,7 +100,6 @@
             drop-shadow(0 0 120px rgba(201,168,76,0.08));
     mix-blend-mode: luminosity;
   }
-  /* Section-level background logos — appear behind specific sections */
   .section-bg-logo {
     position: absolute;
     pointer-events: none;
@@ -115,7 +114,6 @@
     mix-blend-mode: luminosity;
     animation: bgLogoPulse 8s ease-in-out infinite;
   }
-  /* Hero section — large centered watermark */
   #hero .section-bg-logo {
     top: 50%; right: -5%;
     transform: translateY(-50%);
@@ -123,14 +121,12 @@
     height: clamp(340px, 55vw, 680px);
   }
   #hero .section-bg-logo img { opacity: 0.055; animation-delay: 0s; }
-  /* Services section — bottom right corner ghost */
   #services .section-bg-logo {
     bottom: -60px; right: -80px;
     width: clamp(260px, 35vw, 480px);
     height: clamp(260px, 35vw, 480px);
   }
   #services .section-bg-logo img { opacity: 0.035; animation-delay: 1s; }
-  /* Why section — left side ghost */
   #why .section-bg-logo {
     top: 50%; right: 0;
     transform: translateY(-50%);
@@ -138,17 +134,15 @@
     height: clamp(220px, 30vw, 440px);
   }
   #why .section-bg-logo img { opacity: 0.04; animation-delay: 2s; }
-  /* CTA banner — centered large ghost */
   #cta-banner .section-bg-logo {
     top: 30%;
-  left: 30%;
-  transform: translate(-60%, -50%);  /* ← magic here */
-  width: clamp(280px, 40vw, 500px);
-  height: auto;
-  opacity: 0.06;
+    left: 30%;
+    transform: translate(-60%, -50%);
+    width: clamp(280px, 40vw, 500px);
+    height: auto;
+    opacity: 0.06;
   }
   #cta-banner .section-bg-logo img { opacity: 0.06; animation-delay: 0.5s; }
-  /* Contact section — top right */
   #contact .section-bg-logo {
     top: -40px; right: -40px;
     width: clamp(200px, 28vw, 380px);
@@ -156,25 +150,23 @@
   }
   #contact .section-bg-logo img { opacity: 0.03; animation-delay: 1.5s; }
   .hero-logo-img {
-  width: clamp(260px, 40vw, 400px);
-  height: auto;
-  object-fit: contain;
-  background: transparent;
-  border-radius: 50%;
-  padding: 20px;
-  box-shadow: 0 0 40px rgba(201,168,76,0.4);
-
-}
-.bg-logo-watermark,
-.section-bg-logo {
-  display: none !important;
-}
+    width: clamp(260px, 40vw, 400px);
+    height: auto;
+    object-fit: contain;
+    background: transparent;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 0 0 40px rgba(201,168,76,0.4);
+  }
+  .bg-logo-watermark,
+  .section-bg-logo {
+    display: none !important;
+  }
 
   @keyframes bgLogoPulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.7; transform: scale(1.04); }
   }
-  /* Override — keep position transforms for section logos */
   #hero .section-bg-logo img,
   #services .section-bg-logo img,
   #why .section-bg-logo img,
@@ -299,7 +291,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    overflow: visible ;
+    overflow: visible;
     padding: 100px 6% 60px;
   }
   .hero-inner {
@@ -610,9 +602,7 @@
   .service-link::after { content: '→'; }
 
   /* WHY US */
-  #why {
-    background: var(--black);
-  }
+  #why { background: var(--black); }
   .why-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -744,86 +734,6 @@
     border-radius: 2px;
     margin-left: 8px;
   }
-  /* Mock UI inside portfolio cards */
-  .mock-site {
-    width: 100%;
-    height: 100%;
-    padding-top: 28px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .mock-hero-1 {
-    flex: 1;
-    background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 50%, #0d0d1a 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    gap: 8px;
-    position: relative;
-  }
-  .mock-hero-1::before {
-    content: '';
-    position: absolute;
-    width: 80px; height: 80px;
-    background: radial-gradient(circle, rgba(139,92,246,0.3), transparent);
-    top: 20%; left: 30%;
-    border-radius: 50%;
-  }
-  .mock-h { width: 60%; height: 8px; background: rgba(255,255,255,0.8); border-radius: 2px; }
-  .mock-p { width: 80%; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; }
-  .mock-btn { width: 30%; height: 14px; background: #8b5cf6; border-radius: 2px; margin-top: 4px; }
-  .mock-hero-2 {
-    flex: 1;
-    background: linear-gradient(135deg, #0a1628 0%, #0d2137 100%);
-    display: flex;
-    align-items: flex-start;
-    padding: 20px;
-    gap: 10px;
-    position: relative;
-  }
-  .mock-hero-2 .mock-col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-  .mock-hero-2 .mock-img-box { flex: 1; background: rgba(14,165,233,0.15); border: 1px solid rgba(14,165,233,0.2); border-radius: 2px; min-height: 60px; }
-  .mock-h2 { height: 7px; background: rgba(255,255,255,0.7); border-radius: 2px; }
-  .mock-p2 { height: 3px; background: rgba(255,255,255,0.25); border-radius: 2px; }
-  .mock-p2.w60 { width: 60%; }
-  .mock-btn2 { width: 40%; height: 12px; background: #0ea5e9; border-radius: 2px; margin-top: 4px; }
-  .mock-hero-3 {
-    flex: 1;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 20px;
-  }
-  .mock-card-mini {
-    background: rgba(201,168,76,0.07);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 2px;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .mock-card-mini .icon-box { width: 14px; height: 14px; background: rgba(201,168,76,0.3); border-radius: 1px; }
-  .mock-card-mini .line { height: 3px; background: rgba(255,255,255,0.3); border-radius: 1px; }
-  .mock-card-mini .line.short { width: 60%; }
-  .mock-hero-4 {
-    flex: 1;
-    background: linear-gradient(135deg, #0f1f0f 0%, #1a2e1a 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-  }
-  .mock-logo-ph { width: 40px; height: 40px; background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.3); border-radius: 50%; }
-  .mock-nav-bar { width: 90%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 1px; }
-  .mock-tag-row { display: flex; gap: 6px; margin-top: 6px; }
-  .mock-tag { height: 10px; width: 35px; background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.3); border-radius: 10px; }
   .portfolio-overlay {
     position: absolute;
     inset: 0;
@@ -1237,6 +1147,105 @@
   }
   .nav-overlay.open { display: block; }
 
+  /* ─────────────────────────────────────────────────────
+     FLOATING WHATSAPP BUTTON — TASK 2
+  ───────────────────────────────────────────────────── */
+  .float-wa {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 9990;
+    width: 58px;
+    height: 58px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow:
+      0 4px 20px rgba(37, 211, 102, 0.45),
+      0 0 0 0 rgba(37, 211, 102, 0.35);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    animation: waPulse 2.8s ease-in-out infinite;
+    cursor: pointer;
+  }
+  .float-wa:hover {
+    transform: scale(1.14);
+    box-shadow:
+      0 8px 32px rgba(37, 211, 102, 0.65),
+      0 0 0 8px rgba(37, 211, 102, 0.12);
+    animation: none;
+  }
+  .float-wa svg {
+    width: 30px;
+    height: 30px;
+    fill: #ffffff;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  /* Ripple ring */
+  .float-wa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(37, 211, 102, 0.4);
+    animation: waRipple 2.8s ease-out infinite;
+    pointer-events: none;
+  }
+  /* Tooltip */
+  .float-wa::after {
+    content: 'Chat with us';
+    position: absolute;
+    right: calc(100% + 14px);
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    background: rgba(10, 10, 10, 0.92);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    padding: 7px 14px;
+    border: 1px solid rgba(201,168,76,0.3);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    backdrop-filter: blur(8px);
+  }
+  .float-wa:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  @keyframes waPulse {
+    0%, 100% {
+      box-shadow:
+        0 4px 20px rgba(37, 211, 102, 0.45),
+        0 0 0 0 rgba(37, 211, 102, 0.35);
+    }
+    60% {
+      box-shadow:
+        0 4px 20px rgba(37, 211, 102, 0.45),
+        0 0 0 12px rgba(37, 211, 102, 0);
+    }
+  }
+  @keyframes waRipple {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  @media (max-width: 768px) {
+    .float-wa {
+      bottom: 22px;
+      right: 20px;
+      width: 52px;
+      height: 52px;
+    }
+    .float-wa svg { width: 26px; height: 26px; }
+    .float-wa::after { display: none; }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 1024px) {
     .hero-inner { grid-template-columns: 1fr; text-align: center; }
@@ -1269,10 +1278,20 @@
 <body>
 
 <canvas id="particleCanvas"></canvas>
-<!-- FIXED FULL-PAGE WATERMARK -->
 <div class="bg-logo-watermark"><img src="cholan.png" alt=""></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── FLOATING WHATSAPP BUTTON — TASK 2 ─── -->
+<a href="https://wa.me/919489272820"
+   class="float-wa"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -1440,14 +1459,9 @@
 
 <div class="gold-divider"></div>
 
-<!-- PORTFOLIO -->
-<!-- ============================================================
-     PORTFOLIO SECTION — DROP-IN REPLACEMENT
-     Replace everything from <section id="portfolio"> ... </section>
-     (and the matching CSS block) with this code.
-     ============================================================ -->
-
-<!-- ── PORTFOLIO CSS ── paste inside your existing <style> block ──────────── -->
+<!-- ══════════════════════════════════════════════════════════════
+     PORTFOLIO SECTION
+══════════════════════════════════════════════════════════════ -->
 <style id="portfolio-upgrade-styles">
 
 /* ── Reset old portfolio styles ── */
@@ -1803,7 +1817,6 @@
 }
 </style>
 
-<!-- ── PORTFOLIO SECTION ── replace existing <section id="portfolio"> ─────── -->
 <section id="portfolio">
 
   <div class="ptf-header">
@@ -1960,10 +1973,59 @@
       </div>
     </div>
 
+    <!-- ── Card 4 · Hotel VKM — TASK 1 ── -->
+    <div class="ptf-card reveal" style="transition-delay:0.45s"
+         onclick="window.open('https://hotelvkm.in/','_blank')">
+      <div class="ptf-preview-wrap">
+        <div class="ptf-chrome">
+          <div class="ptf-chrome-dot r"></div>
+          <div class="ptf-chrome-dot y"></div>
+          <div class="ptf-chrome-dot g"></div>
+          <div class="ptf-chrome-addr">
+            <span class="ptf-chrome-url">hotelvkm.in</span>
+          </div>
+        </div>
+        <iframe
+          class="ptf-iframe"
+          src="https://hotelvkm.in/"
+          title="Hotel VKM Website"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+          scrolling="no">
+        </iframe>
+      </div>
+      <div class="ptf-overlay">
+        <span class="ptf-overlay-badge">Live Project</span>
+        <div class="ptf-overlay-title">Hotel VKM</div>
+        <a class="ptf-overlay-btn"
+           href="https://hotelvkm.in/"
+           target="_blank"
+           onclick="event.stopPropagation()">
+          Visit Site
+          <svg viewBox="0 0 16 16"><path d="M9 1h5v5l-1-1-5 4-1-2 5-4zm-7 2h4v1H3v8h8v-4h1v5H2z"/></svg>
+        </a>
+      </div>
+      <div class="ptf-info">
+        <span class="ptf-num">04</span>
+        <div class="ptf-name">Hotel VKM</div>
+        <p class="ptf-desc">
+          A modern hotel website with booking-focused design, mobile optimization,
+          and SEO-ready structure for local business growth.
+        </p>
+        <div class="ptf-meta">
+          <span class="ptf-tag">Business</span>
+          <span class="ptf-dot"></span>
+          <span class="ptf-tag">Hotel</span>
+          <span class="ptf-dot"></span>
+          <span class="ptf-tag">Responsive</span>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /.ptf-grid -->
 
   <!-- Bottom CTA strip -->
-  <div class="ptf-bottom reveal" style="transition-delay:0.4s">
+  <div class="ptf-bottom reveal" style="transition-delay:0.5s">
     <a href="https://wa.me/919489272820?text=Hi%20Cholan%2C%20I%20saw%20your%20portfolio%20and%20I%27m%20interested%20in%20a%20website!"
        class="btn-primary" target="_blank">Discuss Your Project</a>
     <a href="#contact" class="btn-outline">View All Services</a>
@@ -1971,7 +2033,7 @@
 
 </section>
 
-<!-- ── Iframe scale fix (run once after DOM ready) ─────────────────────────── -->
+<!-- Iframe scale fix -->
 <script>
 (function scaleIframes() {
   function applyScale() {
@@ -1979,7 +2041,7 @@
       var wrap = f.closest('.ptf-preview-wrap');
       if (!wrap) return;
       var wW = wrap.offsetWidth;
-      var wH = wrap.offsetHeight - 26;          /* subtract chrome bar */
+      var wH = wrap.offsetHeight - 26;
       if (!wW || !wH) return;
       var desktopW = 1280;
       var scaleX = wW / desktopW;
@@ -1997,7 +2059,6 @@
   window.addEventListener('resize', applyScale);
 })();
 </script>
-
 
 <!-- CTA BANNER -->
 <section id="cta-banner">
@@ -2142,7 +2203,7 @@ const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
 (function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
-document.querySelectorAll('a, button, .service-card, .portfolio-card, .why-card, .contact-item').forEach(el => {
+document.querySelectorAll('a, button, .service-card, .portfolio-card, .why-card, .contact-item, .ptf-card, .float-wa').forEach(el => {
   el.addEventListener('mouseenter', () => { ring.style.transform='translate(-50%,-50%) scale(1.8)'; ring.style.opacity='0.3'; });
   el.addEventListener('mouseleave', () => { ring.style.transform='translate(-50%,-50%) scale(1)'; ring.style.opacity='0.6'; });
 });
@@ -2167,7 +2228,7 @@ document.getElementById('navOverlay').onclick = closeMobileNav;
 // SCROLL REVEAL
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const obs = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
+  entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
   });
 }, { threshold: 0.12 });
@@ -2233,7 +2294,6 @@ for (let i=0; i<120; i++) particles.push(new Particle());
 
 function animParticles() {
   ctx.clearRect(0,0,W,H);
-  // Draw connections
   for (let i=0; i<particles.length; i++) {
     for (let j=i+1; j<particles.length; j++) {
       const dx = particles[i].x - particles[j].x;
